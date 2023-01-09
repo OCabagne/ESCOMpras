@@ -1,0 +1,139 @@
+<%@page pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--@elvariable id="producto" type="escompras.model.dto.ProductoDTO"--%>
+<c:if test="${ not empty producto }">
+	<tr id="producto${ producto.id }">
+		<td>
+			<input id="cantidad${ producto.id }"
+			       type="number" value="${producto.cantidad}"
+			       placeholder="Cantidad disponible."
+			       class="form-control" min="0"
+			       onchange="Modificar(${producto.id})"
+			/>
+		</td><%-- Cantidad --%>
+		<td>
+			<input id="nombre${ producto.id }"
+			       type="text" value="${producto.nombre}"
+			       placeholder="Nombre del producto."
+			       maxlength="30"
+			       class="form-control"
+			       onchange="Modificar(${producto.id})"
+			/>
+		</td><%-- Nombre --%>
+		<td>
+			<input id="precio${ producto.id }"
+			       type="number" value="${producto.precio}"
+			       min="0.00" step="0.01"
+			       placeholder="Costo por pieza."
+			       class="form-control"
+			       onchange="Modificar(${producto.id})"
+			/>
+		</td><%-- Precio --%>
+		<td>
+			<input id="unidad${ producto.id }"
+			       type="text" value="${producto.unidad}"
+			       placeholder="Gramos, metros, litros..."
+			       class="form-control"
+			       maxlength="15"
+			       onchange="Modificar(${producto.id})"
+			/>
+		</td><%-- Unidad --%>
+		<td>
+			<input id="descripcion${ producto.id }"
+			       type="text" value="${producto.descripcion}"
+			       placeholder="Descripción del producto."
+			       maxlength="50"
+			       class="form-control"
+			       onchange="Modificar(${producto.id})"
+			/>
+		</td><%-- Descripción --%>
+		<td>
+			<input id="promocion${ producto.id }"
+			       type="text" value="${producto.promocion}"
+			       placeholder="Promoción actual."
+			       maxlength="50"
+			       class="form-control"
+			       onchange="Modificar(${producto.id})"
+			/>
+		</td><%-- Promoción --%>
+		<td>
+			<button class="btn btn-info w-100 container" data-bs-toggle="collapse"
+				data-bs-target="#img${ producto.id }">
+				Ver
+			</button>
+			<div id="img${ producto.id }" class="collapse">
+				<img src="Imagen/producto?id=${ producto.id }"
+				     alt="img${ producto.id }" id="img${ producto.id }src"
+				     height="250" class="py-1 ps-2"
+				>
+				<div class="input-group">
+					<input type="file" class="form-control" id="image${ producto.id }">
+					<button type="button" class="btn btn-success" id="upload${ producto.id }"
+						onclick="CambiarImagen('${ producto.id }');">
+						Cambiar
+					</button>
+				</div>
+				<div id="img${ producto.id }msg"></div>
+				<div id="status${ producto.id }"></div>
+				
+			</div>
+		</td><%-- Imagen --%>
+		<td>
+			<button type="button" class="badge rounded-pill btn bg-danger w-100 mt-2"
+				onclick="Borrar(${ producto.id })">
+				x
+			</button>
+		</td><%-- Modificar --%>
+	</tr>
+</c:if>
+<c:if test="${ empty producto }">
+	<tr>
+		<td>
+			<input id="cantidad" type="number"
+			       placeholder="Cantidad disponible."
+			       class="form-control" min="0"
+			/>
+		</td><%-- Cantidad --%>
+		<td>
+			<input id="nombre" type="text"
+			       placeholder="Nombre del producto."
+			       maxlength="30"
+			       class="form-control"
+			/>
+		</td><%-- Nombre --%>
+		<td>
+			<input id="precio" type="number"
+			       min="0.00" step="0.01"
+			       placeholder="Costo por pieza."
+			       class="form-control"
+			/>
+		</td><%-- Precio --%>
+		<td>
+			<input id="unidad" type="text"
+			       placeholder="Gramos, metros, litros..."
+			       maxlength="15"
+			       class="form-control"
+			/>
+		</td><%-- Unidad --%>
+		<td>
+			<input id="descripcion" type="text"
+			       placeholder="Descripción del producto."
+			       maxlength="50"
+			       class="form-control"
+			/>
+		</td><%-- Descripción --%>
+		<td>
+			<input id="promocion" type="text"
+			       placeholder="Promoción actual."
+			       maxlength="50"
+			       class="form-control"
+			/>
+		</td><%-- Promoción --%>
+		<%--<td></td><%-- Imagen --%>
+		<td colspan="2">
+			<button type="button" class="btn btn-success w-100" onclick="Guardar()">
+				Añadir
+			</button>
+		</td><%-- Modificar --%>
+	</tr>
+</c:if>

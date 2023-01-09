@@ -1,0 +1,63 @@
+<%@tag pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<c:if test="${ not empty sessionScope.error }">
+			<div class='alert alert-danger alert-dismissable fade show row' role='alert'>
+				<div class="col-11">${ sessionScope.error }</div>
+				<c:set var="error" value="" scope="session"/>
+				<button type='button' class='btn btn-close'
+					data-bs-dismiss='alert' aria-label='Close'>
+				</button>
+			</div>
+		</c:if>
+		<c:if test="${ not empty sessionScope.infoMessage }">
+			<div class='alert alert-info alert-dismissable fade show row' role='alert'>
+				<div class="col-11">${ sessionScope.infoMessage }</div>
+				<c:set var="infoMessage" value="" scope="session"/>
+				<button type='button' class='btn btn-close'
+					data-bs-dismiss='alert' aria-label='Close'>
+				</button>
+			</div>
+		</c:if>
+		<c:if test="${ sessionScope.correoNoConfirmado }">
+			<div class='alert alert-warning alert-dismissable fade show row' role='alert' id="claveAlert">
+				<div class="col-11" id="claveDiv">
+					Se envió una clave de confirmación a tu correo.
+					<label for="clave">
+						Ingresa aquí tu clave para comenzar a usar ESCOMpras.
+					</label>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" id="clave" name="clave"/>
+						<button type="button" class="btn btn-info" onclick="
+							let url = '?action=confirmarClave' + GetInputValue('clave');
+							ESCOMpras.SendRequest(url, null, function (result) {
+								if (result === 'OK\n') {
+									ESCOMpras.Find('claveDiv').innerText =
+										'Correo confirmado exitosamente.';
+									let alert = ESCOMpras.Find('claveAlert')
+										.classList;
+									alert.remove('alert-warning');
+									alert.add('alert-success');
+								} else {
+									let confirm = ESCOMpras.Find('clave')
+										.classList;
+									confirm.add('is-invalid');
+									confirm.remove('is-valid');
+								}
+							});
+						">
+							Enviar
+						</button>
+						<button type="button" class="btn btn-secondary" onclick="
+							let url = 'Usuario?action=reenviarClave';
+							ESCOMpras.SendRequest(url, null, result => alert(result));
+						">
+							Reenviar correo
+						</button>
+						<div class="invalid-feedback">Error de código.</div>
+					</div>
+				</div>
+				<button type='button' class='btn btn-close'
+					data-bs-dismiss='alert' aria-label='Close'>
+				</button>
+			</div>
+		</c:if>

@@ -1,0 +1,67 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--@elvariable id="horario" type="escompras.model.dto.HoraServicioDTO"--%>
+<c:if test="${ not empty horario }">
+	<tr id="horario${horario.id}">
+		<td>
+			<select id="day${horario.id}" class="btn btn-secondary col-12"
+				onchange="Modificar(${horario.id})">
+				<option value="1" ${horario.day == 1? 'selected':''}>
+					Lunes
+				</option>
+				<option value="2" ${horario.day == 2? 'selected':''}>
+					Martes
+				</option>
+				<option value="3" ${horario.day == 3? 'selected':''}>
+					Miércoles
+				</option>
+				<option value="4" ${horario.day == 4? 'selected':''}>
+					Jueves
+				</option>
+				<option value="5" ${horario.day == 5? 'selected':''}>
+					Viernes
+				</option>
+				<option value="6" ${horario.day == 6? 'selected':''}>
+					Sábado
+				</option>
+				<option value="7" ${horario.day == 7? 'selected':''}>
+					Domingo
+				</option>
+			</select>
+		</td><!-- Día -->
+		<td>
+			<input type="time" id="ent${ horario.id }" class="form-control"
+			       value="${ horario.horaEntrega}" onchange="Modificar(${horario.id})"
+			/>
+		</td><!-- Entrega -->
+		<td>
+			<button class="btn btn-danger col-12" onclick="Borrar(${horario.id})">
+				Borrar
+			</button>
+		</td>
+	</tr>
+</c:if>
+<c:if test="${ empty horario }">
+	<tr>
+		<td>
+			<select id="day" name="id" class="btn btn-secondary col-12">
+				<option value="0" disabled selected>Día</option>
+				<option value="1">Lunes</option>
+				<option value="2">Martes</option>
+				<option value="3">Miércoles</option>
+				<option value="4">Jueves</option>
+				<option value="5">Viernes</option>
+				<option value="6">Sábado</option>
+				<option value="7">Domingo</option>
+			</select>
+		</td><!-- Día -->
+		<td>
+			<input type="time" id="ent" name="ent" class="form-control"/>
+		</td><!-- Entrega -->
+		<td>
+			<button type="button" class="btn btn-success col-12" onclick="Guardar()">
+				Añadir
+			</button>
+		</td>
+	</tr>
+</c:if>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ESCOMpras - Mi Perfil</title>
+	<link rel="stylesheet" href="lib/Bootstrap5/css/bootstrap.min.css"/>
+	<script src="lib/jquery-3.6.0.min.js"></script>
+	<script src="lib/Bootstrap5/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="lib/escompras.css"/>
+	<script src="lib/index.js"></script>
+</head>
+<body>
+    <div id="navbar-general">
+
+    </div>
+    <!--------------------------------------------------- Navbar ------------------------------------------------------->
+
+    <div class="container w75 mt-5">
+        <div class="row">
+            <h2 class="fw-bold text-center py-3">Mi Perfil</h2>
+            <!-- Información del Perfil -------------------------------------->
+            <div class="col-sm-10 col-md-6">
+                <div class="container-lg p-3">
+                    <div class="row border-1 min-vh-50">
+                        <!-- ----------------------->
+                        <div class="col-md-6">
+                            <div class="home-img text-center">
+                                <img src="./res/not_found.jpg" class="rounded-circle mw-100" alt="Profile Img">
+                            </div>
+                        </div>
+                        <!--Imagen de Perfil -------------->
+                        <div class="col -md-6">
+                            <form method="post" enctype="multipart/form-data" action="Usuario/register">
+                                <div class="mb-4">
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control col-sm-12"
+                                                id="nombre" name="nombre"
+                                                placeholder="Nombre(s)" required="required"/>
+                                        </div>
+                                    </div>
+                                </div><!-- Nombre(s) -->
+                                <div class="mb-4" id="apellidosDiv">
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"
+                                                id="apellidos" name="apellidos"
+                                                placeholder="Apellidos">
+                                        </div>
+                                    </div>
+                                </div><!-- Apellidos -->
+                                <div class="mb-4 d-none" id="ubicacionDiv">
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"
+                                                id="ubicacion" name="ubicacion"
+                                                placeholder="Ubicación">
+                                        </div>
+                                    </div>
+                                </div><!-- Ubicación -->
+                                <div class="mb-4">
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"
+                                                id="correo" name="correo"
+                                                placeholder="Ejemplo@Ejemplo.com" required="required">
+                                        </div>
+                                    </div>
+                                </div><!-- Correo -->
+
+                                <div class="mb-4" id="escuelaDiv">
+                                    <div class="form-row align-items-center">
+                                        <div class="dropdown col inline">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                id="escuelaDD" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Escuela seleccionada por el Cliente
+                                            </button>
+                                            <input type="hidden" name="escuela" id="escuelaElegida" value="">
+                                            <ul class="dropdown-menu" aria-labelledby="escuelaDD">
+                                                <c:forEach var="escuela" items="${ escuelas }">
+                                                    <li class="dropdown-item"
+                                                        onclick="AsignarEscuela('${escuela}')">
+                                                        ${escuela}
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div><!-- Escuela -->
+                                <div class="mb-4 d-none" id="tipoTiendaDiv">
+                                    <div class="form-row align-items-center">
+                                        <div class="dropdown col inline">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                id="tipoTiendaDD" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Tipo de Tienda:
+                                            </button>
+                                            <input type="hidden" name="tipoTienda" id="tipoTiendaElegido" value="">
+                                            <ul class="dropdown-menu" aria-labelledby="tipoTiendaDD">
+                                                <c:forEach var="tipoTienda" items="${ tiposTienda }">
+                                                    <li class="dropdown-item"
+                                                        onclick="AsignarTipoTienda('${tipoTienda}')">
+                                                        ${tipoTienda}
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div><!-- Tipo Tienda -->
+
+                                <div class="mb-4" id="configurarTienda">
+                                    <button class="btn btn-secondary gap-2 col-10 mx-auto">Configuración de mi Negocio</button>
+                                </div>
+                                <!-- Configuración Negocio -->
+
+                                <div class="mb-4">
+                                    <label for="ubicacion" class="col-auto col-form-label">
+                                        Tipo de Usuario: 
+                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                            name="tipo" id="cliente" value="cliente" checked
+                                            onclick="ActivarClienteForm()">
+                                        <label class="form-check-label" for="cliente">
+                                            Soy Cliente
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                            name="tipo" id="tienda" value="tienda"
+                                            onclick="ActivarTiendaForm()">
+                                        <label class="form-check-label" for="tienda">
+                                            Soy Vendedor
+                                        </label>
+                                    </div>
+                                </div><!-- Tipo Usuario -->
+                        </div>
+                        <h4 class="fw-bold text-center py-4">Ultimo Pedido:</h4>
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src="res/not_found.jpg" class="img-fluid rounded-start" alt="...">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title">Card title</h5>
+                                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Información del Perfil -------------------------------------->
+
+                <!-- Otras cosas XD -------------------------------------->
+            <div class="col-sm-10 col-md-5" id="vertical-line">
+                <div class="container-lg p-4">
+                    <div class="row border-1 min-vh-50">
+                        <!-- ------------------>
+                        <div class="mb-4">
+                            <button class="btn btn-success d-grid gap-2 col-6 mx-auto">Pedidos Anteriores</button>
+                        </div>
+                        <!-- Pedidos Anteriores -->
+                        <div class="mb-4">
+                            <button class="btn btn-secondary d-grid gap-2 col-6 mx-auto">Cambiar Contraseña</button>
+                        </div>
+                        <!-- Cambiar Contraseña -->
+                        <div class="mb-4">
+                            <button class="btn btn-secondary d-grid gap-2 col-6 mx-auto">Cambiar Correo</button>
+                        </div>
+                        <!-- Cambiar Correo -->
+                        <div class="mb-4">
+                            <button class="btn btn-primary d-grid gap-2 col-6 mx-auto">Pedido Pendiente</button>
+                        </div>
+                        <!-- Pedido Pendiente -->
+                        <div class="mb-4">
+                            <a class="btn btn-warning d-grid gap-2 col-6 mx-auto" href="#" role="button">Condiciones de Uso</a>
+                        </div>
+                        <!-- Condiciones de Uso -->
+                    </div>
+                </div>
+            </div>
+            <!-- Otras cosas XD -------------------------------------->
+        </div>
+    </div>
+
+    <div id="footer">
+
+    </div>
+
+    <script src="bootstrap.bunlde.min.js"></script>
+</body>
+</html>

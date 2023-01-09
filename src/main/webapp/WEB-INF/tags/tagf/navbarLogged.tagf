@@ -1,0 +1,151 @@
+<%@tag pageEncoding="UTF-8" import="escompras.model.dao.TipoDAO" %>
+<c:set scope="page" var="isCliente" value='${ sessionScope.tipoUsuario == "cliente" }'/>
+<div class="d-flex justify-content-between w-100 align-items-center">
+	<a href="." class="navbar-brand m-0 p-0" style="width: 100px; color: royalblue !important;">
+		<img src="favicon.ico" alt="ícono" width="25"/>
+		<p class="d-none d-md-inline">ESCOMpras</p>
+	</a>
+	<div class="nav-item">
+		<a class="nav-link active navbar-icon" aria-current="page" href="Cliente/favoritos">
+			<svg height="20" viewBox="0 0 16 16">
+				<path fill-rule="evenodd"
+				      d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613
+				      2.986 8 4.412z"></path>
+				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0
+				1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1
+				1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1
+				1 0 0 0-1-1H4z"></path>
+			</svg>
+		</a>
+	</div><%-- Favoritos --%>
+	<div class="nav-item">
+		<a class="nav-link active navbar-icon" aria-current="page" href="Usuario/listarPedidos">
+			<svg width="20" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3
+				3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5
+				10.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
+				<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5
+				3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0
+				2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"></path>
+			</svg>
+		</a>
+	</div><%-- Pedidos --%>
+	<div class="nav-item dropdown">
+		<div class="nav-link active navbar-icon" id="categoriaDD" role="button"
+		     data-bs-toggle="dropdown" aria-expanded="false">
+			<svg width="24" viewBox="0 0 16 16">
+				<path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0
+				1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5
+				1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"></path>
+				<path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5
+				8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0
+				5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5
+				0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0
+				2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"></path>
+			</svg>
+		</div>
+		<ul class="dropdown-menu" aria-labelledby="categoriaDD">
+			<c:forEach var="tipoTienda" items="${ TipoDAO.ReadAll() }">
+				<%--@elvariable id="tipoTienda" type="escompras.model.entity.Tipo"--%>
+				<li>
+					<a class="dropdown-item" href="./?cat=${ tipoTienda.idTipo }">
+						${ tipoTienda.nombre }
+					</a>
+				</li>
+			</c:forEach>
+		</ul>
+	</div><%-- Categorías --%>
+	<div class="nav-item dropdown">
+		<div class="nav-link active navbar-icon" id="searchDD" role="button"
+		     data-bs-toggle="dropdown" aria-expanded="false">
+			<svg width="20" viewBox="0 0 16 16">
+				<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397
+				1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0
+				1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0
+				1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+			</svg>
+		</div>
+		<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDD">
+			<li style="width: 20em">
+				<form method="post" action="." class="input-group">
+					<input class="form-control" type="search"
+					       placeholder="¿Qué estás buscando?"
+					       maxlength="30"
+					       name="search" id="search"
+					       aria-label="Search" required
+					/>
+					<button class="btn btn-outline-success" type="submit">
+						<svg width="20" viewBox="0 0 16 16">
+							<path fill="currentColor" d="M11.742 10.344a6.5 6.5 0 1 0-1.397
+							 	1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0
+							 	1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12
+							 	6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+							></path>
+						</svg>
+					</button>
+				</form>
+			</li>
+		</ul>
+	</div><%-- Buscar --%>
+	<div class="nav-item dropdown d-flex m-0 p-0 justify-content-end"
+	     style="color: royalblue !important; width: 100px">
+		<div class="d-none d-md-inline">
+			<c:if test='${ isCliente and sessionScope.usuario.indexOf(",") > 0 }'
+			      var="hasApellidos" scope="page">
+				${ sessionScope.usuario.substring(sessionScope.usuario.indexOf(",") + 2) }
+			</c:if><c:if test="${ not hasApellidos }">
+				${ sessionScope.usuario }
+			</c:if>
+		</div>
+		<c:if test="${ hasApellidos }"><div class="d-none d-lg-inline ps-1">
+			${ sessionScope.usuario.substring(0, sessionScope.usuario.indexOf(",")) }
+		</div></c:if>
+		<div id="userDD" class="dropdown-toggle ms-1" role="button"
+		     data-bs-toggle="dropdown" aria-expanded="false">
+			<img src="Imagen/${ sessionScope.tipoUsuario }Icon?id=${ sessionScope.id }"
+			     id="userImg" alt="usuario"
+			     onerror="ESCOMpras.SetDefaultUserImg();"
+			/>
+		</div>
+		<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDD">
+			<li>
+				<a class="dropdown-item" href="Usuario/listarPedidos">
+					Pedidos
+				</a>
+			</li>
+			<li>
+				<a class="dropdown-item"
+				   href="./?action=terminosYCondiciones">
+					Info
+				</a>
+			</li>
+			<c:if test="${ not isCliente }">
+				<li>
+					<a class="dropdown-item"
+					   href="Tienda/horarios">
+						Mis horarios
+					</a>
+				</li>
+				<li>
+					<a class="dropdown-item"
+					   href="Tienda/listarProductos">
+						Mis productos
+					</a>
+				</li>
+			</c:if>
+			<li>
+				<a class="dropdown-item"
+				   href="Usuario/cambiarDatos">
+					Configuración
+				</a>
+			</li>
+			<li><hr class="dropdown-divider"/></li>
+			<li>
+				<a class="dropdown-item"
+				   href="Usuario/logout">
+					Cerrar Sesión
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

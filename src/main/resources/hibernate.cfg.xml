@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration
+	PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<!-- ↓ Datos de Heroku. >
+		<property name="connection.url">jdbc:postgresql://ec2-54-83-21-198.compute-1.amazonaws.com:5432/d7tag9ima53eft</property>
+		<property name="connection.username">mkwfdlbdziegyp</property>
+		<property name="connection.password">6d060e56f42fe25d65a10db0cec6c36f38b629fec996ab649bb50ce60f16f6f2</property>
+		<    ↑ Datos de Heroku. -->
+		<property name="connection.url">jdbc:postgresql://dpg-cebuqchgp3jg4tdq8vfg-a.ohio-postgres.render.com/escomprasdb</property>
+		<property name="connection.username">escompras_servlet</property>
+		<property name="connection.password">WBzOnyMDTgQMDZIUiLElh2vOawo9tiO3</property>
+		
+		<property name="connection.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+		<property name="show_sql">true</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="connection.pool_size">10</property>
+		<property name="hibernate.dbcp.initialSize">5</property>
+		<property name="hibernate.dbcp.maxTotal">10</property>
+		<property name="hibernate.dbcp.maxIdle">5</property>
+		<property name="hibernate.dbcp.minIdle">5</property>
+		<property name="hibernate.dbcp.maxWaitMillis">-1</property>
+		
+		<!-- Aquí inicia la definición de clases de tipo entidad. -->
+		<mapping class="escompras.model.entity.Escuela"/>
+		<mapping class="escompras.model.entity.Cliente"/>
+		<mapping class="escompras.model.entity.Tienda"/>
+		<mapping class="escompras.model.entity.Tipo"/>
+		<mapping class="escompras.model.entity.Compra"/>
+		<mapping class="escompras.model.entity.Orden"/>
+		<mapping class="escompras.model.entity.Reporte"/>
+		<mapping class="escompras.model.entity.Comentario"/>
+		<mapping class="escompras.model.entity.Producto"/>
+		<mapping class="escompras.model.entity.HoraServicio"/>
+		<mapping class="escompras.model.entity.Ingreso"/>
+		<mapping class="escompras.model.entity.Clave"/>
+		<mapping class="escompras.model.entity.ClaveEntrega"/>
+	</session-factory>
+</hibernate-configuration>
